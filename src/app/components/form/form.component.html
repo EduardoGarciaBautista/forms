@@ -1,0 +1,61 @@
+<form [formGroup]="formGroup">
+  <ng-container
+    *ngFor="let control of controls | filter;
+     trackBy: trackByFn; let  position = index">
+
+    <div class="control" [attr.data-before]="position + 1">
+      <label [for]="control.name">{{ control.label }}</label>
+      <!-- CONTROLS -->
+      <ng-container [ngSwitch]="control.tag">
+        <!-- INPUT -->
+        <ng-container *ngSwitchCase="'input'">
+          <input
+            [appProps]="control.props"
+            [formControlName]="control.name"/>
+        </ng-container>
+
+        <!-- TEXTAREA -->
+        <ng-container *ngSwitchCase="'textarea'">
+          <span class="message">{{ control.message }}</span>
+          <textarea
+            [appProps]="control.props"
+            [formControlName]="control.name">
+          </textarea>
+        </ng-container>
+
+        <!-- SELECT -->
+        <ng-container *ngSwitchCase="'select'">
+          <select
+            [appProps]="control.props"
+            [formControlName]="control.name">
+            <option
+              [value]="option"
+              *ngFor="let option of control.options">
+              {{ option }}
+            </option>
+          </select>
+        </ng-container>
+
+        <!-- RADIO -->
+        <ng-container *ngSwitchCase="'radio'">
+          <ng-container *ngFor="let item of control?.controlGroup">
+            <label [for]="item.id">
+              {{ item.label }}
+              <input
+                [formControlName]="control.name"
+                [id]="item.id"
+                type="radio"
+                [name]="control.name"
+                [value]="item.value"
+              />
+            </label>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </div>
+  </ng-container>
+  <button [disabled]="formGroup.invalid" (click)="submit()">Continuar</button>
+  <button (click)="patch()">Patch</button>
+</form>
+
+<button routerLink="/test">Next</button>

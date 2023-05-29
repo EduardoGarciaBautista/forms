@@ -1,1 +1,41 @@
 /* You can add global styles to this file, and also import other style files */
+form {
+    width: 300px;
+    height: auto;
+    padding: 1rem 0m;
+    label {
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+    .control {
+      margin-bottom: 1rem;
+      padding-left: 2rem;
+      position: relative;
+      &::before {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        content: attr(data-before);
+        width: 20px;
+        height: 20px;
+        background: red;
+        position: absolute;
+        left: 0;
+        border-radius: 50%;
+      }
+      .message {
+        font-size: 12px;
+        color: rebeccapurple;
+      }
+    }
+  }
+
+
+  textarea {
+    display: block;
+    width: 100%;
+  }
+
+  input[type="text"] {
+    width: 100%;
+  }
